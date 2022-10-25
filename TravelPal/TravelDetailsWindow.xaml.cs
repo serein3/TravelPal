@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TravelPal
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TravelDetailsWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TravelDetailsWindow : Window
     {
-        public MainWindow()
+        public TravelDetailsWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            RegisterWindow registerWindow = new();
-            registerWindow.ShowDialog();
         }
     }
 }
