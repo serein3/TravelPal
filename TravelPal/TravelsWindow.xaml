@@ -8,10 +8,10 @@
         Title="TravelsWindow" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue">
     <Border Padding="20">
         <StackPanel>
-            <TextBlock Text="Welcome User!" FontSize="32"/>
+            <TextBlock Name="txtWelcome" FontSize="32"/>
             <StackPanel Orientation="Horizontal" Margin="0, 20, 0 ,20">
-                <Button Name="btnUser" Content="User" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}"/>
-                <Button Name="btnSignOut" Content="Sign Out" Width="140" Margin="0, 0, 220, 0" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnUser" Content="User" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnUser_Click"/>
+                <Button Name="btnSignOut" Content="Sign Out" Width="140" Margin="0, 0, 220, 0" Style="{StaticResource travelPalButtons}" Click="btnSignOut_Click"/>
                 <Button Name="btnInfo" Content="Info" Width="80" Style="{StaticResource travelPalButtons}"/>
             </StackPanel>
             <TextBlock Text="Your travels" FontSize="30"/>

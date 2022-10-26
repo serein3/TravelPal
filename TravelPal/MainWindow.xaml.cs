@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelPal.Managers;
+using TravelPal.Models;
 
 namespace TravelPal
 {
@@ -20,14 +22,52 @@ namespace TravelPal
     /// </summary>
     public partial class MainWindow : Window
     {
+        private UserManager userManager = new();
         public MainWindow()
         {
             InitializeComponent();
+            tbUsername.Focus();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public MainWindow(UserManager userManager) : this()
         {
-            RegisterWindow registerWindow = new();
+ 
+            this.userManager = userManager;
+        }
+
+        private void ResetLoginUI()
+        {
+            tbUsername.Clear();
+            pbPassword.Clear();
+            tbUsername.Focus();
+        }
+            private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+            bool isUserFound = userManager.SignInUser(tbUsername.Text, pbPassword.Password);
+            bool isUserAdmin = userManager.CheckIfAdmin();
+
+            if (isUserFound)
+            {
+                if (isUserAdmin)
+                {
+                    MessageBox.Show("Admin!");
+                }
+                else
+                {
+                    ResetLoginUI();
+                    TravelsWindow travelsWindow = new(userManager);
+                    travelsWindow.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid Username or Password");
+            }
+        }
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterWindow registerWindow = new(userManager);
             registerWindow.ShowDialog();
         }
     }
