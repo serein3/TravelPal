@@ -25,8 +25,13 @@ namespace TravelPal
         {
             InitializeComponent();
             this.userManager = userManager;
-            txtWelcome.Text = $"Welcome {userManager.SignedInUser.Username}!";
+            UpdateWelcomeMessage();
 
+        }
+
+        public void UpdateWelcomeMessage()
+        {
+            txtWelcome.Text = $"Welcome {userManager.SignedInUser.Username}!";
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -38,7 +43,7 @@ namespace TravelPal
 
         private void btnUser_Click(object sender, RoutedEventArgs e)
         {
-            UserDetailsWindow userDetailsWindow = new(userManager);
+            UserDetailsWindow userDetailsWindow = new(userManager, this);
             userDetailsWindow.ShowDialog();
         }
     }

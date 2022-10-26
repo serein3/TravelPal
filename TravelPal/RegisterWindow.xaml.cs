@@ -35,23 +35,41 @@ namespace TravelPal
 
             if (!string.IsNullOrEmpty(tbRegisterUsername.Text) && !string.IsNullOrEmpty(pbRegisterPassword.Password) && !string.IsNullOrEmpty(pbRegisterConfirmPassword.Password) && cbRegisterCountry != null)
             {
-                if (pbRegisterPassword.Password != pbRegisterConfirmPassword.Password)
-                {
-                    MessageBox.Show("Passwords must match!");
-                }
-                else
-                {
-                    User newUser = new(tbRegisterUsername.Text, pbRegisterPassword.Password, (Countries)cbRegisterCountry.SelectedItem);
+                bool isValidUsernameLength = userManager.ValidateUsernameLength(tbRegisterUsername.Text);
+                bool isValidPasswordLength = userManager.ValidatePasswordLength(pbRegisterPassword.Password);
 
-                    if (!userManager.AddUser(newUser))
+                
+                if (isValidUsernameLength)
+                {
+                    if (isValidPasswordLength)
                     {
-                        MessageBox.Show("User already exists!");
+                        if (pbRegisterPassword.Password == pbRegisterConfirmPassword.Password)
+                        {
+                            User newUser = new(tbRegisterUsername.Text, pbRegisterPassword.Password, (Countries)cbRegisterCountry.SelectedItem);
+
+                            if (userManager.AddUser(newUser))
+                            {
+                                MessageBox.Show("Registration successful!");
+                                Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("User already exists!");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Passwords must match!");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show($"Registration successful! ");
-                        Close();
+                        MessageBox.Show("Password must be at least 5 characters!");
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Username must be at least 3 characters!");
                 }
             }
             else

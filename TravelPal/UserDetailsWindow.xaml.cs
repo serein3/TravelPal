@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
 using TravelPal.Managers;
+using TravelPal.Models;
 
 namespace TravelPal
 {
@@ -22,10 +23,12 @@ namespace TravelPal
     public partial class UserDetailsWindow : Window
     {
         private UserManager userManager;
-        public UserDetailsWindow(UserManager userManager)
+        private TravelsWindow travelsWindow;
+        public UserDetailsWindow(UserManager userManager, TravelsWindow travelsWindow)
         {
             InitializeComponent();
             this.userManager = userManager;
+            this.travelsWindow = travelsWindow;
             cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
             SetUserDetails();
         }
@@ -33,9 +36,63 @@ namespace TravelPal
         private void SetUserDetails()
         {
             tbDetailsUsername.Text = userManager.SignedInUser.Username;
-            tbDetailsPassword.Password = userManager.SignedInUser.Password;
-            tbDetailsConfirmPassword.Password = userManager.SignedInUser.Password;
-            cbDetailsCountry.SelectedIndex = (int)userManager.SignedInUser.Location; ;
+            pbDetailsPassword.Password = userManager.SignedInUser.Password;
+            pbDetailsConfirmPassword.Password = userManager.SignedInUser.Password;
+            cbDetailsCountry.SelectedIndex = (int)userManager.SignedInUser.Location;
+        }
+
+        private void btnUserDetailsCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnUserDetailsSave_Click(object sender, RoutedEventArgs e)
+        {
+            bool isValidUsernameLength = userManager.ValidateUsernameLength(tbDetailsUsername.Text);
+            bool isValidPasswordLength = userManager.ValidatePasswordLength(pbDetailsPassword.Password);
+
+            if (!string.IsNullOrEmpty(tbDetailsUsername.Text) && !string.IsNullOrEmpty(pbDetailsPassword.Password) && !string.IsNullOrEmpty(pbDetailsConfirmPassword.Password) && cbDetailsCountry != null)
+            {
+                if (isValidUsernameLength)
+                {
+                    if (isValidPasswordLength)
+                    {
+                        if (pbDetailsPassword.Password == pbDetailsConfirmPassword.Password)
+                        {
+                            User user = new(tbDetailsUsername.Text, pbDetailsPassword.Password, (Countries)cbDetailsCountry.SelectedItem);
+
+                            if (userManager.UpdateUser(user))
+                            {
+                                MessageBox.Show("Changes saved!");
+                                travelsWindow.UpdateWelcomeMessage();
+                                Close();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Username not available!");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Passwords must match!");
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Password must be at least 5 characters!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Username must be at least 3 characters!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("All fields must be filled!");
+            }
         }
     }
 }

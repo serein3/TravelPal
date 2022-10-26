@@ -33,9 +33,39 @@ namespace TravelPal.Managers
             return false;
         }
 
+        public bool UpdateUser(IUser userToUpdate)
+        {
+            if (ValidateUsername(userToUpdate.Username))
+            {
+                SignedInUser.Username = userToUpdate.Username;
+                SignedInUser.Password = userToUpdate.Password;
+                SignedInUser.Location = userToUpdate.Location;
+                return true;
+            }
+            return false;
+        }
+
         public bool UpdateUsername(IUser user, string password)
         {
             return false;
+        }
+        
+        public bool ValidateUsernameLength(string username)
+        {
+            if (username.Length < 3)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool ValidatePasswordLength(string password)
+        {
+            if (password.Length < 5)
+            {
+                return false;
+            }
+            return true;
         }
 
         private bool ValidateUsername(string username)
