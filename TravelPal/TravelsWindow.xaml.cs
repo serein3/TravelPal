@@ -44,7 +44,7 @@ namespace TravelPal
         {
             if (signedInUser.Travels.Count() != 0)
             {
-                foreach (Travel travel in signedInUser.Travels)
+                foreach (Travel travel in travelManager.Travels)
                 {
                     ListViewItem listViewItem = new();
                     listViewItem.Tag = travel;

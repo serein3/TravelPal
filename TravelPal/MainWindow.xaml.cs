@@ -29,7 +29,6 @@ namespace TravelPal
             InitializeComponent();
             tbUsername.Focus();
             this.userManager = new();
-            this.travelManager = new(userManager);
         }
 
         public MainWindow(UserManager userManager, TravelManager travelManager)
@@ -61,6 +60,12 @@ namespace TravelPal
                 else
                 {
                     ResetLoginUI();
+
+                    if (travelManager == null)
+                    {
+                        travelManager = new(userManager);
+                    }
+
                     TravelsWindow travelsWindow = new(userManager, travelManager);
                     travelsWindow.Show();
                     this.Close();
