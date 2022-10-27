@@ -35,7 +35,7 @@ namespace TravelPal.Models
 
         private int CalculateTravelDays()
         {
-            return 0; // FIX THIS SHIT LATER
+            return Convert.ToInt32((EndDate - StartDate).Days);
         }
     }
 }
