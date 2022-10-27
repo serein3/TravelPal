@@ -44,12 +44,13 @@ namespace TravelPal
         {
             if (signedInUser.Travels.Count() != 0)
             {
-                foreach (Travel travel in travelManager.Travels)
+                foreach (Travel travel in signedInUser.Travels)
                 {
                     ListViewItem listViewItem = new();
                     listViewItem.Tag = travel;
                     listViewItem.Content = travel.GetInfo();
                     lvTravels.Items.Add(listViewItem);
+                    travelManager.Travels.Add(travel);
                 }
             }
         }
