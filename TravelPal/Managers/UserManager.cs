@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,20 @@ namespace TravelPal.Managers
 
         public UserManager()
         {
+            GenerateDefaultUsers();
+        }
+
+        private void GenerateDefaultUsers()
+        {
             Admin admin = new("admin", "password", Countries.Japan);
             Users.Add(admin);
 
             User gandalf = new("Gandalf", "password", Countries.Korea);
             Users.Add(gandalf);
+            Vacation vacation1 = new("Frankfurt", Countries.Germany, 2, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true);
+            gandalf.Travels.Add(vacation1);
+            Trip trip1 = new("Tokyo", Countries.Japan, 1, new DateTime(2023, 01, 23), new DateTime(2023, 01, 25), TripTypes.Work);
+            gandalf.Travels.Add(trip1);
         }
 
         public bool AddUser(IUser newUser)
@@ -35,7 +45,7 @@ namespace TravelPal.Managers
 
         public bool UpdateUser(IUser userToUpdate)
         {
-            if (ValidateUsername(userToUpdate.Username))
+            if (ValidateUsername(userToUpdate.Username) || userToUpdate.Username == SignedInUser.Username)
             {
                 SignedInUser.Username = userToUpdate.Username;
                 SignedInUser.Password = userToUpdate.Password;

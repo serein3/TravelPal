@@ -12,13 +12,13 @@
             <StackPanel Orientation="Horizontal" Margin="0, 20, 0 ,20">
                 <Button Name="btnUser" Content="User" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnUser_Click"/>
                 <Button Name="btnSignOut" Content="Sign Out" Width="140" Margin="0, 0, 220, 0" Style="{StaticResource travelPalButtons}" Click="btnSignOut_Click"/>
-                <Button Name="btnInfo" Content="Info" Width="80" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnInfo" Content="Info" Width="80" Style="{StaticResource travelPalButtons}" Click="btnInfo_Click"/>
             </StackPanel>
             <TextBlock Text="Your travels" FontSize="30"/>
-            <ListView Height="320" Style="{StaticResource travelPalListView}"/>
+            <ListView Name="lvTravels" Height="320" Style="{StaticResource travelPalListView}"/>
             <StackPanel Orientation="Horizontal" Margin="0, 20, 0 , 20">
                 <Button Name="btnTravelAdd" Content="Add" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}"/>
-                <Button Name="btnTravelRemove" Content="Remove" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnTravelRemove" Content="Remove" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnTravelRemove_Click"/>
                 <Button Name="btnTravelDetails" Content="Details" Width="140" Style="{StaticResource travelPalButtons}"/>
 
             </StackPanel>

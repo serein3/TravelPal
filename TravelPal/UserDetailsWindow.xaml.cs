@@ -29,7 +29,7 @@ namespace TravelPal
             InitializeComponent();
             this.userManager = userManager;
             this.travelsWindow = travelsWindow;
-            cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
+            cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries)); // TODO Display descriptions instead of names with underscores
             SetUserDetails();
         }
 
@@ -37,7 +37,6 @@ namespace TravelPal
         {
             tbDetailsUsername.Text = userManager.SignedInUser.Username;
             pbDetailsPassword.Password = userManager.SignedInUser.Password;
-            pbDetailsConfirmPassword.Password = userManager.SignedInUser.Password;
             cbDetailsCountry.SelectedIndex = (int)userManager.SignedInUser.Location;
         }
 
@@ -70,29 +69,34 @@ namespace TravelPal
                             }
                             else
                             {
-                                MessageBox.Show("Username not available!");
+                                MessageBox.Show("Username not available!", "warning");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Passwords must match!");
+                            MessageBox.Show("Passwords must match!", "warning");
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show("Password must be at least 5 characters!");
+                        MessageBox.Show("Password must be at least 5 characters!", "warning");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Username must be at least 3 characters!");
+                    MessageBox.Show("Username must be at least 3 characters!", "warning");
                 }
             }
             else
             {
-                MessageBox.Show("All fields must be filled!");
+                MessageBox.Show("All fields must be filled!", "warning");
             }
+        }
+
+        private void pbDetailsPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            pbDetailsPassword.Clear();
         }
     }
 }

@@ -54,27 +54,27 @@ namespace TravelPal
                             }
                             else
                             {
-                                MessageBox.Show("User already exists!");
+                                MessageBox.Show("User already exists!", "warning");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Passwords must match!");
+                            MessageBox.Show("Passwords must match!", "warning");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Password must be at least 5 characters!");
+                        MessageBox.Show("Password must be at least 5 characters!", "warning");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Username must be at least 3 characters!");
+                    MessageBox.Show("Username must be at least 3 characters!", "warning");
                 }
             }
             else
             {
-                MessageBox.Show("All fields must be filled!");
+                MessageBox.Show("All fields must be filled!" , "warning");
             }
         }
     }

@@ -22,17 +22,23 @@ namespace TravelPal
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UserManager userManager = new();
+        private UserManager userManager;
+        private TravelManager travelManager;
         public MainWindow()
         {
             InitializeComponent();
             tbUsername.Focus();
+            this.userManager = new();
+            this.travelManager = new(userManager);
         }
 
-        public MainWindow(UserManager userManager) : this()
+        public MainWindow(UserManager userManager, TravelManager travelManager)
         {
- 
+            InitializeComponent();
+            tbUsername.Focus();
             this.userManager = userManager;
+            this.travelManager = travelManager;
+
         }
 
         private void ResetLoginUI()
@@ -55,14 +61,14 @@ namespace TravelPal
                 else
                 {
                     ResetLoginUI();
-                    TravelsWindow travelsWindow = new(userManager);
+                    TravelsWindow travelsWindow = new(userManager, travelManager);
                     travelsWindow.Show();
                     this.Close();
                 }
             }
             else
             {
-                MessageBox.Show("Invalid Username or Password");
+                MessageBox.Show("Invalid Username or Password", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
