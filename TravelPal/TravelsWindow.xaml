@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelsWindow" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue">
+        Title="TravelsWindow" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
     <Border Padding="20">
         <StackPanel>
             <TextBlock Name="txtWelcome" FontSize="32"/>
@@ -17,9 +17,9 @@
             <TextBlock Text="Your travels" FontSize="30"/>
             <ListView Name="lvTravels" Height="320" Style="{StaticResource travelPalListView}"/>
             <StackPanel Orientation="Horizontal" Margin="0, 20, 0 , 20">
-                <Button Name="btnTravelAdd" Content="Add" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnTravelAdd" Content="Add" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnTravelAdd_Click"/>
                 <Button Name="btnTravelRemove" Content="Remove" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnTravelRemove_Click"/>
-                <Button Name="btnTravelDetails" Content="Details" Width="140" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnTravelDetails" Content="Details" Width="140" Style="{StaticResource travelPalButtons}" Click="btnTravelDetails_Click"/>
 
             </StackPanel>
         </StackPanel>

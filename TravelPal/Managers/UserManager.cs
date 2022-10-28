@@ -22,8 +22,15 @@ namespace TravelPal.Managers
 
         private void GenerateDefaultUsers()
         {
+
+            // MOVE THE CREATION OF TRAVELS AND ADDITION TO ALL TRAVELS LIST TO TRAVELMANAGER
             Admin admin = new("admin", "password", Countries.Japan);
             Users.Add(admin);
+
+            User jakub = new("Jakub", "12345", Countries.Sweden);
+            Users.Add(jakub);
+            Vacation vacation2 = new("Idk man", Countries.Denmark, 1, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true);
+            jakub.Travels.Add(vacation2);
 
             User gandalf = new("Gandalf", "password", Countries.Korea);
             Users.Add(gandalf);

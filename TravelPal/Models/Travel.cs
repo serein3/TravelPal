@@ -30,7 +30,7 @@ namespace TravelPal.Models
 
         public virtual string GetInfo()
         {
-            return $"{Country} | Travel length: {CalculateTravelDays()}";
+            return $"{Country} | Travel Duration: {CalculateTravelDays()}";
         }
 
         private int CalculateTravelDays()

@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelDetailsWindow" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue">
+        Title="TravelDetailsWindow" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
 
     <Border Padding="20">
         <Grid>
@@ -28,7 +28,7 @@
                 <TextBlock Text="Starting Date"/>
                 <DatePicker Name="dpStartingDate" Background="MintCream"/>
                 <TextBlock Text="Ending Date" Margin="0, 20, 0 ,0"/>
-                <DatePicker Name="dpEndingDate" Background="MintCream"/>
+                <DatePicker Name="dpEndDate" Background="MintCream"/>
                 <TextBlock Text="Length of travel" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbTravelLength" IsEnabled="false" Style="{StaticResource travelPalTextBoxes}"/>
             </StackPanel>
@@ -41,9 +41,10 @@
                 <TextBlock Text="Travelers" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbTravelers"  Style="{StaticResource travelPalTextBoxes}"/>
                 <TextBlock Text="Travel Type" Margin="0, 20, 0 ,0"/>
-                <ComboBox Name="tbTravelType" Style="{StaticResource travelPalComboBox}"/>
-                <TextBlock Text="Trip Type/All Inclusive" Margin="0, 20, 0, 0"/>
-                <ComboBox Name="cbTripTypeOrAllInclusive" Style="{StaticResource travelPalComboBox}"/>
+                <ComboBox Name="cbTravelType" Style="{StaticResource travelPalComboBox}"/>
+                <CheckBox Name="xbAllInclusive" Visibility="Hidden" Content="All Inclusive" VerticalContentAlignment="Center"/>
+                <TextBlock Name="txtTripType" Visibility="Hidden" Text="Trip Type" Margin="0, 0, 0, 0"/>
+                <ComboBox Name="cbTripTypeOrAllInclusive" Visibility="Hidden" Style="{StaticResource travelPalComboBox}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="20, 20, 0, 0">

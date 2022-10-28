@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="AddTravelWindow" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue">
+        Title="AddTravelWindow" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
     <Border Padding="20">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,10 +38,9 @@
                 <ComboBox Name="cbDetailsCountry" Style="{StaticResource travelPalComboBox}"/>
                 <TextBlock Text="Travelers" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbTravelers"  Style="{StaticResource travelPalTextBoxes}"/>
-                <TextBlock Text="Travel Type" Margin="0, 20, 0 ,0"/>
-                <ComboBox Name="tbTravelType" Style="{StaticResource travelPalComboBox}"/>
-                <TextBlock Text="Trip Type/All Inclusive" Margin="0, 20, 0, 0"/>
-                <ComboBox Name="cbTripTypeOrAllInclusive" Style="{StaticResource travelPalComboBox}"/>
+                <CheckBox Name="xbAllInclusive" Visibility="Hidden" Content="All Inclusive" VerticalContentAlignment="Center"/>
+                <TextBlock Name="txtTripType" Visibility="Hidden" Text="Trip Type" Margin="0, 20, 0, 0"/>
+                <ComboBox Name="cbTripTypeOrAllInclusive" Visibility="Hidden" Style="{StaticResource travelPalComboBox}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="20, 20, 0, 0">

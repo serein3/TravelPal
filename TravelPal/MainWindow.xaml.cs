@@ -53,22 +53,25 @@ namespace TravelPal
             bool isUserFound = userManager.SignInUser(tbUsername.Text, pbPassword.Password);
             bool isUserAdmin = userManager.CheckIfAdmin();
 
+            // MAYBE REFRACTOR THIS INTO METHOD LATER
+            if (travelManager == null)
+            {
+                travelManager = new(userManager);
+            }
+
             if (isUserFound)
             {
                 if (isUserAdmin)
                 {
-                    MessageBox.Show("Admin!");
+                    TravelsWindow travelsWindow = new(userManager, travelManager, isUserAdmin);
+                    travelsWindow.Show();
+                    Close();
                 }
                 else
                 {
                     ResetLoginUI();
 
-                    if (travelManager == null)
-                    {
-                        travelManager = new(userManager);
-                    }
-
-                    TravelsWindow travelsWindow = new(userManager, travelManager);
+                    TravelsWindow travelsWindow = new(userManager, travelManager, isUserAdmin);
                     travelsWindow.Show();
                     this.Close();
                 }

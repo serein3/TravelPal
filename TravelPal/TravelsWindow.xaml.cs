@@ -24,15 +24,29 @@ namespace TravelPal
         private UserManager userManager;
         private TravelManager travelManager;
         private User signedInUser;
-        public TravelsWindow(UserManager userManager, TravelManager travelManager)
+        private bool isAdmin;
+        public TravelsWindow(UserManager userManager, TravelManager travelManager, bool isAdmin)
         {
             InitializeComponent();
             this.userManager = userManager;
             this.travelManager = travelManager;
             signedInUser = userManager.SignedInUser as User;
+            this.isAdmin = isAdmin;
             UpdateWelcomeMessage();
             UpdateTravelsList();
+            UpdateAdminUI();
                 
+        }
+
+        private void UpdateAdminUI()
+        {
+            if (isAdmin)
+            {
+                btnTravelAdd.IsEnabled = false;
+                btnTravelDetails.IsEnabled = false;
+                btnUser.IsEnabled = false;
+                btnInfo.IsEnabled = false;
+            }
         }
 
         public void UpdateWelcomeMessage()
@@ -42,7 +56,17 @@ namespace TravelPal
 
         private void UpdateTravelsList()
         {
-            if (signedInUser.Travels.Count() != 0)
+            if (isAdmin && travelManager.Travels.Count() != 0)
+            {
+                foreach (Travel travel in travelManager.Travels)
+                {
+                    ListViewItem listViewItem = new();
+                    listViewItem.Tag = travel;
+                    listViewItem.Content = travel.GetInfo();
+                    lvTravels.Items.Add(listViewItem);
+                }
+            }
+            else if (signedInUser.Travels.Count() != 0)
             {
                 foreach (Travel travel in signedInUser.Travels)
                 {
@@ -50,7 +74,6 @@ namespace TravelPal
                     listViewItem.Tag = travel;
                     listViewItem.Content = travel.GetInfo();
                     lvTravels.Items.Add(listViewItem);
-                    travelManager.Travels.Add(travel);
                 }
             }
         }
@@ -70,17 +93,57 @@ namespace TravelPal
 
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TravelPal is a company for travelling or something... This app allows you to easily track your travels!!!\n\n You can see your travels in the list below." +
-                " In order to add, remove, or update your travels, use the buttons below.");
+            MessageBox.Show("TravelPal is a company for travelling or something... This app allows you to easily track your travels!!!\n\nYou can see your travels in the list below." +
+                " In order to add, remove, or update your travels, use the buttons you silly goose.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnTravelRemove_Click(object sender, RoutedEventArgs e)
         {
+            // REFRACTORRRRRRRR AAA
+            if (isAdmin)
+            {
+                if (lvTravels.SelectedItem != null)
+                {
+                    ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
+                    travelManager.RemoveTravel(selectedItem.Tag as Travel);
+                    lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
+            {
+                if (lvTravels.SelectedItem != null)
+                {
+                    ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
+                    travelManager.RemoveTravel(selectedItem.Tag as Travel);
+                    lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void btnTravelAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddTravelWindow addTravelWindow = new();
+            addTravelWindow.ShowDialog();
+        }
+
+        private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
+        {
+            TravelDetailsWindow travelDetailsWindow;
+
             if (lvTravels.SelectedItem != null)
             {
                 ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
-                travelManager.RemoveTravel(selectedItem.Tag as Travel); 
-                lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
+                travelDetailsWindow = new(selectedItem.Tag as Travel);
+                travelDetailsWindow.ShowDialog();
+
             }
             else
             {
