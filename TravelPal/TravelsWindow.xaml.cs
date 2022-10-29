@@ -150,5 +150,11 @@ namespace TravelPal
                 MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            lvTravels.Items.Clear();
+            UpdateTravelsList();
+        }
     }
 }

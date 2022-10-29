@@ -20,8 +20,6 @@ namespace TravelPal
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// FRÅGOR:
-    /// 1. EXTRA WINDOW FÖR ADMINVIEW EFTERSOM ADMIN ENDAST SKA KUNNA SE OCH TA BORT ALLA TRAVELS?
     public partial class MainWindow : Window
     {
         private UserManager userManager;

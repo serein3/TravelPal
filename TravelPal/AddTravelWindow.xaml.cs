@@ -24,88 +24,112 @@ namespace TravelPal
     {
         private UserManager userManager;
         private TravelManager travelManager;
-        private bool isTripTypeFilled = false; // MAYBE REFRACTOR THIS INTO ONE METHOD INSTEAD OF HAVING AN ADDITIONAL BOOL just fix this shit in general
+        private User signedInUser;
         public AddTravelWindow(UserManager userManager, TravelManager travelManager)
         {
             InitializeComponent();
             this.userManager = userManager;
             this.travelManager = travelManager;
+            this.signedInUser = userManager.SignedInUser as User;
             cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
             cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
         }
 
         // RETURN STRING WITH TRAVEL TYPE INSTEAD AND ADD ANOTHER METHOD MODIFYTRAVELTYPEUI
-        private void DetermineTravelType()
+        private string DetermineTravelType()
         {
             if (cbTravelType.SelectedItem != null)
             {
                 if (cbTravelType.SelectedItem == "Trip")
                 {
-                    xbAllInclusive.Visibility = Visibility.Hidden;
-                    txtTripType.Visibility = Visibility.Visible;
-                    cbTripTypeOrAllInclusive.Visibility = Visibility.Visible;
-                    cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
+                    return "Trip";
                 }
                 else if (cbTravelType.SelectedItem == "Vacation")
                 {
-                    txtTripType.Visibility = Visibility.Hidden;
-                    cbTripTypeOrAllInclusive.Visibility = Visibility.Hidden;
-                    xbAllInclusive.Visibility = Visibility.Visible;
-                    isTripTypeFilled = true;
+                    return "Vacation";
                 }
+            }
+            return null;
+        }
+
+        private void ModifyTravelTypeUI(string travelType)
+        {
+            if (travelType == "Trip")
+            {
+                xbAllInclusive.Visibility = Visibility.Hidden;
+                txtTripType.Visibility = Visibility.Visible;
+                cbTripTypeOrAllInclusive.Visibility = Visibility.Visible;
+                cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
+            }
+            else if (travelType == "Vacation")
+            {
+                txtTripType.Visibility = Visibility.Hidden;
+                cbTripTypeOrAllInclusive.Visibility = Visibility.Hidden;
+                xbAllInclusive.Visibility = Visibility.Visible;
             }
         }
         private bool CheckIfAllFieldsAreFilled()
         {
             if (dpStartingDate.SelectedDate != null && dpEndingDate.SelectedDate != null && !string.IsNullOrEmpty(tbDestination.Text) && !string.IsNullOrEmpty(tbTravelers.Text) && cbTravelType.SelectedItem != null)
             {
-                if (isTripTypeFilled)
+                if (int.TryParse(tbTravelers.Text, out int result))
                 {
-                    if (int.TryParse(tbTravelers.Text, out int result))
+                    if (DetermineTravelType() == "Trip")
+                    {
+                        if (cbTripTypeOrAllInclusive.SelectedItem != null)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (DetermineTravelType() == "Vacation")
                     {
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Please input a valid amount of travellers!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return false;
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please input a valid amount of travellers!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
                 }
             }
             MessageBox.Show("All fields must be filled!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;
         }
 
-        private void CheckIfTripTypeIsFilled()
-        {
-            if (cbTripTypeOrAllInclusive.SelectedItem != null)
-            {
-                isTripTypeFilled = true;
-            }
-        }
-
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             if (CheckIfAllFieldsAreFilled())
             {
-                 
+                if (DetermineTravelType() == "Trip")
+                {
+                    Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem);
+                    signedInUser.Travels.Add(newTrip);
+                    travelManager.Travels.Add(newTrip);
+                }
+                else if (DetermineTravelType() == "Vacation")
+                {
+                    Vacation newVacation;
+
+                    if (xbAllInclusive.IsChecked == true)
+                    {
+                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, true);
+                    }
+                    else
+                    {
+                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, false);
+                    }
+                    signedInUser.Travels.Add(newVacation);
+                    travelManager.Travels.Add(newVacation);
+                }
                 MessageBox.Show("Added!");
+                this.Close();
             }
         }
 
         private void cbTravelType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbTravelType.SelectedItem != null)
-            {
-                DetermineTravelType();
-                CheckIfTripTypeIsFilled();
-            }
-        }
-
-        private void cbTripTypeOrAllInclusive_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CheckIfTripTypeIsFilled();
+            ModifyTravelTypeUI(DetermineTravelType());
         }
     }
 }
