@@ -33,6 +33,8 @@ namespace TravelPal
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
 
+            // REFRACTOR THIS MESS OF A CODE VOMIT LATER
+
             if (!string.IsNullOrEmpty(tbRegisterUsername.Text) && !string.IsNullOrEmpty(pbRegisterPassword.Password) && !string.IsNullOrEmpty(pbRegisterConfirmPassword.Password) && cbRegisterCountry != null)
             {
                 bool isValidUsernameLength = userManager.ValidateUsernameLength(tbRegisterUsername.Text);

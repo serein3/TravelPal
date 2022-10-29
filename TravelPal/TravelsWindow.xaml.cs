@@ -130,7 +130,7 @@ namespace TravelPal
 
         private void btnTravelAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddTravelWindow addTravelWindow = new();
+            AddTravelWindow addTravelWindow = new(userManager, travelManager);
             addTravelWindow.ShowDialog();
         }
 
@@ -141,7 +141,7 @@ namespace TravelPal
             if (lvTravels.SelectedItem != null)
             {
                 ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
-                travelDetailsWindow = new(selectedItem.Tag as Travel);
+                travelDetailsWindow = new(selectedItem.Tag as Travel, travelManager);
                 travelDetailsWindow.ShowDialog();
 
             }

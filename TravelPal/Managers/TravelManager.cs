@@ -12,6 +12,7 @@ namespace TravelPal.Managers
     public class TravelManager
     {
         public List<Travel> Travels { get; set; } = new();
+        public List<string> TravelTypes { get; set; } = new() { "Trip", "Vacation" };
 
         private UserManager userManager;
         private User signedInUser;

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
+using TravelPal.Managers;
 using TravelPal.Models;
 
 namespace TravelPal
@@ -23,13 +24,14 @@ namespace TravelPal
     public partial class TravelDetailsWindow : Window
     {
         private Travel travel;
-        private List<string> travelTypes = new List<string> { "Trip", "Vacation" };
-        public TravelDetailsWindow(Travel travel)
+        private TravelManager travelManager;
+        public TravelDetailsWindow(Travel travel, TravelManager travelManager)
         {
             InitializeComponent();
             this.travel = travel;
+            this.travelManager = travelManager;
             cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
-            cbTravelType.ItemsSource = travelTypes;
+            cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
             UpdateUI();
         }
@@ -47,6 +49,7 @@ namespace TravelPal
 
             dpStartingDate.Text = travel.StartDate.ToString();
             dpEndDate.Text = travel.EndDate.ToString();
+            tbTravelLength.Text = travel.TravelDays.ToString();
             tbDestination.Text = travel.Destination.ToString();
             tbTravelers.Text = travel.Travellers.ToString();
             cbDetailsCountry.SelectedItem = travel.Country;
