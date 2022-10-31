@@ -59,20 +59,11 @@ namespace TravelPal
 
             if (isUserFound)
             {
-                if (isUserAdmin)
-                {
-                    TravelsWindow travelsWindow = new(userManager, travelManager, isUserAdmin);
-                    travelsWindow.Show();
-                    Close();
-                }
-                else
-                {
-                    ResetLoginUI();
+                ResetLoginUI();
 
-                    TravelsWindow travelsWindow = new(userManager, travelManager, isUserAdmin);
-                    travelsWindow.Show();
-                    this.Close();
-                }
+                TravelsWindow travelsWindow = new(userManager, travelManager, isUserAdmin);
+                travelsWindow.Show();
+                this.Close();
             }
             else
             {

@@ -21,8 +21,10 @@ namespace TravelPal
     /// <summary>
     /// Interaction logic for AddTravelWindow.xaml
     /// </summary>
+
     public partial class AddTravelWindow : Window
     {
+        // TODO Refractor this shit it's such a mess, also test packinglist for bugs but if it works just look if it can be done better because yes messy
         private UserManager userManager;
         private TravelManager travelManager;
         private User signedInUser;
