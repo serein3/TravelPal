@@ -46,14 +46,14 @@
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="20, 20, 0, 0">
                 <TextBlock Text="Item Name"/>
                 <TextBox Name="tbItemName" Style="{StaticResource travelPalTextBoxes}"/>
-                <StackPanel Orientation="Horizontal" Margin="0, 10, 0 ,0">
-                    <CheckBox Name="xbDocument" VerticalContentAlignment="Center" Content="Document" FontSize="18"/>
-                    <CheckBox Name="xbRequired" VerticalContentAlignment="Center" Content="Required" FontSize="18" Margin="20, 0, 0 ,0"/>
-                </StackPanel>
-                <TextBlock Text="Quantity" Margin="0, 20, 0 ,0"/>
+                <StackPanel Margin="0, 10, 0 ,0" Orientation="Horizontal">
+                    <CheckBox Name="xbDocument" VerticalContentAlignment="Center" Content="Document" FontSize="18" Checked="xbDocument_Checked" Unchecked="xbDocument_Unchecked"/>
+                    <CheckBox Name="xbRequired" Visibility="Hidden" VerticalContentAlignment="Center" Content="Required" FontSize="18" Margin="20, 0 ,0 ,0"/>
+                </StackPanel>    
+                <TextBlock Name="txtQuantity" Text="Quantity" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbQuantity" Style="{StaticResource travelPalTextBoxes}"/>
                 <TextBlock Text="Packing List" Margin="0, 20, 0 ,0"/>
-                <ListView Name="lvDetailsPackingList" Height="140" Style="{StaticResource travelPalListView}"/>
+                <ListView Name="lvPackingList" Height="140" Style="{StaticResource travelPalListView}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="2">
@@ -61,8 +61,8 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="3">
-                <Button Content="Add" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}"/>
-                <Button Content="Remove" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}"/>
+                <Button Name="btnPackingListAdd"  Content="Add" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}" Click="btnPackingListAdd_Click"/>
+                <Button Name="btnPackingListRemove" Content="Remove" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}" Click="btnPackingListRemove_Click"/>
             </StackPanel>
 
         </Grid>

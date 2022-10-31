@@ -27,6 +27,8 @@ namespace TravelPal
         private TravelManager travelManager;
         private User signedInUser;
         private ListViewItem listViewItem;
+        private ListViewItem packingListViewItem = new();
+        private List<IPackingListItem> packingList = new();
         public AddTravelWindow(UserManager userManager, TravelManager travelManager)
         {
             InitializeComponent();
@@ -38,9 +40,28 @@ namespace TravelPal
             cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
 
+
             // ADD A CHECK LATER FOR GOING BACK IN TIME WITH THE BOOKING
             dpStartingDate.DisplayDateStart = DateTime.Now;
             dpEndingDate.DisplayDateStart = DateTime.Now.AddDays(1);
+
+        }
+
+
+        private void ClearPackingListUI()
+        {
+            tbItemName.Clear();
+            tbQuantity.Clear();
+            xbDocument.IsChecked = false;
+            xbRequired.IsChecked = false;
+        }
+        private bool CheckIfRequiredIsChecked()
+        {
+            if (xbRequired.IsChecked == true)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool DetermineDocumentRequired()
@@ -129,7 +150,7 @@ namespace TravelPal
                     // TODO POSSIBLY REFRACTOR THIS SHIT INTO ITS OWN ADDPACKINGLISTITEM METHOD OR SOMETHING ALSO BELOW
                     signedInUser.Travels.Add(newTrip);
                     travelManager.Travels.Add(newTrip);
-                    newTrip.PackingList.Add(listViewItem.Tag as TravelDocument);
+                    newTrip.PackingList.AddRange(packingList);
                 }
                 else if (DetermineTravelType() == "Vacation")
                 {
@@ -146,10 +167,8 @@ namespace TravelPal
                     }
                     signedInUser.Travels.Add(newVacation);
                     travelManager.Travels.Add(newVacation);
-                    newVacation.PackingList.Add(listViewItem.Tag as TravelDocument);
+                    newVacation.PackingList.AddRange(packingList);
                 }
-
-
 
                 MessageBox.Show("Added!");
                 this.Close();
@@ -163,24 +182,106 @@ namespace TravelPal
 
         private void cbDetailsCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            lvDetailsPackingList.Items.Clear();
 
             if (DetermineDocumentRequired())
             {
+
+                if (lvPackingList.Items.Count > 0)
+                {
+                    lvPackingList.Items.Remove(packingListViewItem);
+                    packingList.Remove(packingListViewItem.Tag as IPackingListItem);
+                }
+
                 TravelDocument newTravelDocument = new("Passport", true);
-                listViewItem = new ListViewItem();
-                listViewItem.Content = newTravelDocument.GetInfo();
-                listViewItem.Tag = newTravelDocument;
-                lvDetailsPackingList.Items.Add(listViewItem);
+                packingListViewItem.Content = newTravelDocument.GetInfo();
+                packingListViewItem.Tag = newTravelDocument;
+                lvPackingList.Items.Add(packingListViewItem);
+                packingList.Add(newTravelDocument);
             }
             else
             {
+                if (lvPackingList.Items.Count > 0)
+                {
+                    lvPackingList.Items.Remove(packingListViewItem);
+                    packingList.Remove(packingListViewItem.Tag as IPackingListItem);
+                }
+
                 TravelDocument newTravelDocument = new("Passport", false);
-                listViewItem = new ListViewItem();
-                listViewItem.Content = newTravelDocument.GetInfo();
-                listViewItem.Tag = newTravelDocument;
-                lvDetailsPackingList.Items.Add(listViewItem);
+                packingListViewItem.Content = newTravelDocument.GetInfo();
+                packingListViewItem.Tag = newTravelDocument;
+                lvPackingList.Items.Add(packingListViewItem);
+                packingList.Add(newTravelDocument);
             }
+        }
+
+        private void btnPackingListRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvPackingList.SelectedItem != null)
+            {
+                ListViewItem item = lvPackingList.SelectedItem as ListViewItem;
+
+                signedInUser.Travels.Remove(item.Tag as Travel);
+                lvPackingList.Items.Remove(item);
+            }
+            else
+            {
+                MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void xbDocument_Checked(object sender, RoutedEventArgs e)
+        {
+            xbRequired.Visibility = Visibility.Visible;
+            tbQuantity.Visibility = Visibility.Hidden;
+            txtQuantity.Visibility = Visibility.Hidden;
+        }
+
+        private void xbDocument_Unchecked(object sender, RoutedEventArgs e)
+        {
+            xbRequired.IsChecked = false;
+            xbRequired.Visibility = Visibility.Hidden;
+            tbQuantity.Visibility = Visibility.Visible;
+            txtQuantity.Visibility = Visibility.Visible;
+        }
+
+        private void btnPackingListAdd_Click(object sender, RoutedEventArgs e)
+        {
+            bool isRequired = CheckIfRequiredIsChecked();
+            ListViewItem newPackingListItem = new();
+
+            if (!String.IsNullOrEmpty(tbItemName.Text))
+            {
+
+                if (xbDocument.IsChecked == true)
+                {
+                    TravelDocument newDocument = new(tbItemName.Text, isRequired);
+                    newPackingListItem.Tag = newDocument;
+                    newPackingListItem.Content = newDocument.GetInfo();
+                    lvPackingList.Items.Add(newPackingListItem);
+                    packingList.Add(newDocument);
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(tbQuantity.Text) && int.TryParse(tbQuantity.Text, out int result))
+                    {
+                        OtherItem newOtherItem = new(tbItemName.Text, Convert.ToInt32(tbQuantity.Text));
+                        newPackingListItem.Tag = newOtherItem;
+                        newPackingListItem.Content = newOtherItem.GetInfo();
+                        lvPackingList.Items.Add(newPackingListItem);
+                        packingList.Add(newOtherItem);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please input a valid quantity!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("All fields must be filled!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            ClearPackingListUI();
         }
     }
 }

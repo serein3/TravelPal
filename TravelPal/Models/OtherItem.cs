@@ -20,7 +20,7 @@ namespace TravelPal.Models
 
         public string GetInfo()
         {
-            return "";
+            return $"{Quantity} {Name}(s)";
         }
     }
 }
