@@ -20,7 +20,17 @@ namespace TravelPal.Models
 
         public string GetInfo()
         {
-            return "";
+            string requiredMessage;
+            if (Required)
+            {
+                requiredMessage = "Required";
+            }
+            else
+            {
+                requiredMessage = "Not Required";
+            }
+
+            return $"{Name} | {requiredMessage}";
         }
     }
 }

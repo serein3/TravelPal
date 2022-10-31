@@ -33,7 +33,7 @@
                 <TextBlock Text="Destination"/>
                 <TextBox Name="tbDestination"  Style="{StaticResource travelPalTextBoxes}"/>
                 <TextBlock Text="Country" Margin="0, 20, 0 ,0"/>
-                <ComboBox Name="cbDetailsCountry" Style="{StaticResource travelPalComboBox}"/>
+                <ComboBox Name="cbDetailsCountry" Style="{StaticResource travelPalComboBox}" SelectionChanged="cbDetailsCountry_SelectionChanged"/>
                 <TextBlock Text="Travelers" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbTravelers"  Style="{StaticResource travelPalTextBoxes}"/>
                 <TextBlock Text="Travel Type" Margin="0, 20, 0 ,0"/>

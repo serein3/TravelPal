@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
+using TravelPal.Interfaces;
 using TravelPal.Managers;
 using TravelPal.Models;
 
@@ -34,8 +35,19 @@ namespace TravelPal
             cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
             UpdateUI();
+            PopulatePackingList();
         }
 
+        private void PopulatePackingList()
+        {
+            foreach (IPackingListItem item in travel.PackingList)
+            {
+                ListViewItem listViewItem = new();
+                listViewItem.Content = item.GetInfo();
+                listViewItem.Tag = item;
+                lvDetailsPackingList.Items.Add(listViewItem);
+            }
+        }
         private void UpdateUI()
         {
             dpStartingDate.IsEnabled = false;
