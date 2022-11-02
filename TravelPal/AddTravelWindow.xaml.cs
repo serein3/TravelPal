@@ -114,10 +114,12 @@ namespace TravelPal
                 xbAllInclusive.Visibility = Visibility.Visible;
             }
         }
-        private bool CheckIfAllFieldsAreFilled()
+        private bool ValidateInput()
         {
             if (dpStartingDate.SelectedDate != null && dpEndingDate.SelectedDate != null && !string.IsNullOrEmpty(tbDestination.Text) && !string.IsNullOrEmpty(tbTravelers.Text) && cbTravelType.SelectedItem != null && cbDetailsCountry.SelectedItem != null)
             {
+                if (dpEndingDate.SelectedDate >= dpStartingDate.SelectedDate)
+                {
                     if (int.TryParse(tbTravelers.Text, out int result))
                     {
                         if (DetermineTravelType() == "Trip")
@@ -137,6 +139,12 @@ namespace TravelPal
                         MessageBox.Show("Please input a valid amount of travellers!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return false;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("How you gon' travel back in time? Ending date has to be later than starting date yo", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
             MessageBox.Show("All fields must be filled!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;
@@ -144,7 +152,7 @@ namespace TravelPal
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfAllFieldsAreFilled())
+            if (ValidateInput())
             {
                 if (DetermineTravelType() == "Trip")
                 {
