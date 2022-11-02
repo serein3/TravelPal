@@ -150,8 +150,11 @@ namespace TravelPal
                 {
                     Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem);
                     // TODO POSSIBLY REFRACTOR THIS SHIT INTO ITS OWN ADDPACKINGLISTITEM METHOD OR SOMETHING ALSO BELOW
-                    signedInUser.Travels.Add(newTrip);
-                    travelManager.Travels.Add(newTrip);
+
+                    // YOU HAVE A METHOD FOR THIS IN YOUR TRAVELMANAGER YOU DIPSHIT
+                    //signedInUser.Travels.Add(newTrip);
+                    //travelManager.Travels.Add(newTrip);
+                    travelManager.AddTravel(newTrip);
                     newTrip.PackingList.AddRange(packingList);
                 }
                 else if (DetermineTravelType() == "Vacation")
@@ -167,8 +170,7 @@ namespace TravelPal
                     {
                         newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, false);
                     }
-                    signedInUser.Travels.Add(newVacation);
-                    travelManager.Travels.Add(newVacation);
+                    travelManager.AddTravel(newVacation);
                     newVacation.PackingList.AddRange(packingList);
                 }
 
