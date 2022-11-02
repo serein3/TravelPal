@@ -31,53 +31,66 @@ namespace TravelPal
             tbRegisterUsername.Focus();
         }
 
+        // Checks if user can be added, sends appropriate message to user depending on outcome and closes this window
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateInput())
+            {
+                User newUser = new(tbRegisterUsername.Text, pbRegisterPassword.Password, (Countries)cbRegisterCountry.SelectedItem);
 
-            // REFRACTOR THIS MESS OF A CODE VOMIT LATER
+                if (userManager.AddUser(newUser))
+                {
+                    MessageBox.Show("Registration successful!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("User already exists!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
 
-            if (!string.IsNullOrEmpty(tbRegisterUsername.Text) && !string.IsNullOrEmpty(pbRegisterPassword.Password) && !string.IsNullOrEmpty(pbRegisterConfirmPassword.Password) && cbRegisterCountry != null)
+        // Checks if all necessary fields are filled, displays appropriate warning message otherwise
+        private bool ValidateInput()
+        {
+            if (!string.IsNullOrEmpty(tbRegisterUsername.Text) && !string.IsNullOrEmpty(pbRegisterPassword.Password) && !string.IsNullOrEmpty(pbRegisterConfirmPassword.Password) && cbRegisterCountry.SelectedItem != null)
             {
                 bool isValidUsernameLength = userManager.ValidateUsernameLength(tbRegisterUsername.Text);
                 bool isValidPasswordLength = userManager.ValidatePasswordLength(pbRegisterPassword.Password);
 
-                
+
                 if (isValidUsernameLength)
                 {
                     if (isValidPasswordLength)
                     {
                         if (pbRegisterPassword.Password == pbRegisterConfirmPassword.Password)
                         {
-                            User newUser = new(tbRegisterUsername.Text, pbRegisterPassword.Password, (Countries)cbRegisterCountry.SelectedItem);
-
-                            if (userManager.AddUser(newUser))
-                            {
-                                MessageBox.Show("Registration successful!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                                Close();
-                            }
-                            else
-                            {
-                                MessageBox.Show("User already exists!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            }
+                            return true;
                         }
                         else
                         {
                             MessageBox.Show("Passwords must match!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return false;
                         }
                     }
                     else
                     {
+
                         MessageBox.Show("Password must be at least 5 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Username must be at least 3 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
                 }
             }
             else
             {
+
                 MessageBox.Show("All fields must be filled!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
             }
         }
     }

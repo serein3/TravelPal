@@ -38,6 +38,7 @@ namespace TravelPal
                 
         }
 
+        // Updates the UI based on user type (user or admin)
         private void UpdateAdminUI()
         {
             if (isAdmin)
@@ -49,11 +50,13 @@ namespace TravelPal
             }
         }
 
+        // Updates welcome message based on signed in user's current username
         public void UpdateWelcomeMessage()
         {
             txtWelcome.Text = $"Welcome {userManager.SignedInUser.Username}!";
         }
 
+        // Updates travels list based on user type (user or admin)
         private void UpdateTravelsList()
         {
             if (isAdmin && travelManager.Travels.Count() != 0)
@@ -78,6 +81,7 @@ namespace TravelPal
             }
         }
 
+        // Creates new instance of mainwindow, passing all necessary information and closes this window
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new(userManager, travelManager);
@@ -99,32 +103,24 @@ namespace TravelPal
 
         private void btnTravelRemove_Click(object sender, RoutedEventArgs e)
         {
-            // REFRACTORRRRRRRR AAA
-            if (isAdmin)
+            if (lvTravels.SelectedItem != null)
             {
-                if (lvTravels.SelectedItem != null)
+                if (isAdmin)
                 {
                     ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
-                    travelManager.RemoveTravel(selectedItem.Tag as Travel);
+                    travelManager.AdminRemoveTravel(selectedItem.Tag as Travel);
                     lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
                 }
                 else
                 {
-                    MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
+                    travelManager.RemoveTravel(selectedItem.Tag as Travel);
+                    lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
                 }
             }
             else
             {
-                if (lvTravels.SelectedItem != null)
-                {
-                    ListViewItem selectedItem = lvTravels.SelectedItem as ListViewItem;
-                    travelManager.RemoveTravel(selectedItem.Tag as Travel);
-                    lvTravels.Items.RemoveAt(lvTravels.SelectedIndex);
-                }
-                else
-                {
-                    MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                MessageBox.Show("Selection required!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

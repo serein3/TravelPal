@@ -40,12 +40,15 @@ namespace TravelPal
 
         }
 
+        // Resets all window fields
         private void ResetLoginUI()
         {
             tbUsername.Clear();
             pbPassword.Clear();
             tbUsername.Focus();
         }
+
+            // Checks whether it is possible to sign in user, checks if user is admin, and creates new instance of travelswindow, passing all the necessary information
             private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
             bool isUserFound = userManager.SignInUser(tbUsername.Text, pbPassword.Password);
@@ -70,6 +73,8 @@ namespace TravelPal
                 MessageBox.Show("Invalid Username or Password", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        // Creates new instance of register window, passing all necessary information
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new(userManager);

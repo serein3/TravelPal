@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelDetailsWindow" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
+        Title="TravelPal - Travel Details" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
 
     <Border Padding="20">
         <Grid>

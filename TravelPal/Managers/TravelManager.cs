@@ -21,9 +21,13 @@ namespace TravelPal.Managers
         {
             this.userManager = userManager;
             signedInUser = userManager.SignedInUser as User;
+            AddDefaultTravels();
+        }
 
 
-            // Add all existing user travels to this travels list
+        // Adds all default user travels to this travels list (Gandalf in this case)
+        private void AddDefaultTravels()
+        {
             foreach (IUser user in userManager.Users)
             {
                 if (user is User)
@@ -38,23 +42,27 @@ namespace TravelPal.Managers
             }
         }
 
+        // Adds travel to the general travels list as well as signed in user's travels list
         public void AddTravel(Travel travel)
         {
             Travels.Add(travel);
             signedInUser.Travels.Add(travel);
         }
 
+        // Removes travel from the general travels list as well as the signed in user's travels list
         public void RemoveTravel(Travel travel)
         {
             {
                 Travels.Remove(travel);
-                travel.Owner.Travels.Remove(travel);
+                signedInUser.Travels.Remove(travel);
             }
         }
 
+        // Removes travel from the general travels list as well as the travel owner's travels list
         public void AdminRemoveTravel(Travel travel)
         {
-
+            Travels.Remove(travel);
+            travel.Owner.Travels.Remove(travel);
         }
     }
 }

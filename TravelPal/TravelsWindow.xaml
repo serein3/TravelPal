@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelsWindow" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
+        Title="TravelPal" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
     <Border Padding="20">
         <StackPanel>
             <TextBlock Name="txtWelcome" FontSize="32"/>
