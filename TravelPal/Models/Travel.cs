@@ -19,8 +19,9 @@ namespace TravelPal.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int TravelDays { get; set; }
+        public User Owner { get; set; }
 
-        public Travel(string destination, Countries country, int travellers, DateTime startDate, DateTime endDate)
+        public Travel(string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, User owner)
         {
             Destination = destination;
             Country = country;
@@ -28,6 +29,7 @@ namespace TravelPal.Models
             StartDate = startDate;
             EndDate = endDate;
             TravelDays = CalculateTravelDays();
+            Owner = owner;
         }
 
         public virtual string GetInfo()

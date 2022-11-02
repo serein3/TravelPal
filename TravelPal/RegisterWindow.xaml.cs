@@ -28,6 +28,7 @@ namespace TravelPal
             InitializeComponent();
             this.userManager = userManager;
             cbRegisterCountry.ItemsSource = Enum.GetValues(typeof(Countries));
+            tbRegisterUsername.Focus();
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -51,32 +52,32 @@ namespace TravelPal
 
                             if (userManager.AddUser(newUser))
                             {
-                                MessageBox.Show("Registration successful!");
+                                MessageBox.Show("Registration successful!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 Close();
                             }
                             else
                             {
-                                MessageBox.Show("User already exists!", "warning");
+                                MessageBox.Show("User already exists!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Passwords must match!", "warning");
+                            MessageBox.Show("Passwords must match!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Password must be at least 5 characters!", "warning");
+                        MessageBox.Show("Password must be at least 5 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Username must be at least 3 characters!", "warning");
+                    MessageBox.Show("Username must be at least 3 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("All fields must be filled!" , "warning");
+                MessageBox.Show("All fields must be filled!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

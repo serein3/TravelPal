@@ -66,7 +66,7 @@ namespace TravelPal
                     lvTravels.Items.Add(listViewItem);
                 }
             }
-            else if (signedInUser.Travels.Count() != 0)
+            else if (!isAdmin && signedInUser.Travels.Count() != 0)
             {
                 foreach (Travel travel in signedInUser.Travels)
                 {

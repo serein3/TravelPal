@@ -69,28 +69,28 @@ namespace TravelPal
                             }
                             else
                             {
-                                MessageBox.Show("Username not available!", "warning");
+                                MessageBox.Show("Username not available!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Passwords must match!", "warning");
+                            MessageBox.Show("Passwords must match!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show("Password must be at least 5 characters!", "warning");
+                        MessageBox.Show("Password must be at least 5 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Username must be at least 3 characters!", "warning");
+                    MessageBox.Show("Username must be at least 3 characters!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("All fields must be filled!", "warning");
+                MessageBox.Show("All fields must be filled!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

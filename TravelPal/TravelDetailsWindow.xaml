@@ -29,7 +29,7 @@
                 <DatePicker Name="dpStartingDate" Background="MintCream"/>
                 <TextBlock Text="Ending Date" Margin="0, 20, 0 ,0"/>
                 <DatePicker Name="dpEndDate" Background="MintCream"/>
-                <TextBlock Text="Length of travel" Margin="0, 20, 0 ,0"/>
+                <TextBlock Text="Duration of travel" Margin="0, 20, 0 ,0"/>
                 <TextBox Name="tbTravelLength" IsEnabled="false" Style="{StaticResource travelPalTextBoxes}"/>
             </StackPanel>
 

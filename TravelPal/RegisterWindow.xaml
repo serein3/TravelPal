@@ -10,7 +10,7 @@
         <StackPanel>
             <TextBlock Text="Register" FontSize="36"/>
             <TextBlock Text="Username" Margin="0, 20, 0, 0"/>
-            <TextBox Name="tbRegisterUsername"/>
+            <TextBox Name="tbRegisterUsername" />
             <TextBlock Text="Password" Margin="0, 20, 0, 0"/>
             <PasswordBox Name="pbRegisterPassword" Style="{StaticResource travelPassPasswordBoxes}"/>
             <TextBlock Text="Confirm Password" Margin="0, 20, 0, 0"/>

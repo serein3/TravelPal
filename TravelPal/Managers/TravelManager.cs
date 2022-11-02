@@ -48,7 +48,7 @@ namespace TravelPal.Managers
         {
             {
                 Travels.Remove(travel);
-                signedInUser.Travels.Remove(travel);
+                travel.Owner.Travels.Remove(travel);
             }
         }
 

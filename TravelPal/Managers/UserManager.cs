@@ -27,14 +27,17 @@ namespace TravelPal.Managers
 
             User jakub = new("Jakub", "12345", Countries.Sweden);
             Users.Add(jakub);
-            Vacation vacation2 = new("Idk man", Countries.Denmark, 1, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true);
-            jakub.Travels.Add(vacation2);
+            Vacation vacation1 = new("Idk man", Countries.Denmark, 1, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true, jakub);
+            vacation1.PackingList.Add(new TravelDocument("Passport", false));
+            jakub.Travels.Add(vacation1);
 
             User gandalf = new("Gandalf", "password", Countries.Korea);
             Users.Add(gandalf);
-            Vacation vacation1 = new("Frankfurt", Countries.Germany, 2, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true);
-            gandalf.Travels.Add(vacation1);
-            Trip trip1 = new("Tokyo", Countries.Japan, 1, new DateTime(2023, 01, 23), new DateTime(2023, 01, 25), TripTypes.Work);
+            Vacation vacation2 = new("Frankfurt", Countries.Germany, 2, new DateTime(2022, 10, 30), new DateTime(2022, 11, 07), true, gandalf);
+            vacation2.PackingList.Add(new TravelDocument("Passport", true));
+            gandalf.Travels.Add(vacation2);
+            Trip trip1 = new("Tokyo", Countries.Japan, 1, new DateTime(2023, 01, 23), new DateTime(2023, 01, 25), TripTypes.Work, gandalf);
+            trip1.PackingList.Add(new TravelDocument("Passport", true));
             gandalf.Travels.Add(trip1);
         }
 

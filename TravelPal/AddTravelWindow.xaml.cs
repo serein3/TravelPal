@@ -148,12 +148,8 @@ namespace TravelPal
             {
                 if (DetermineTravelType() == "Trip")
                 {
-                    Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem);
+                    Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem, signedInUser);
                     // TODO POSSIBLY REFRACTOR THIS SHIT INTO ITS OWN ADDPACKINGLISTITEM METHOD OR SOMETHING ALSO BELOW
-
-                    // YOU HAVE A METHOD FOR THIS IN YOUR TRAVELMANAGER YOU DIPSHIT
-                    //signedInUser.Travels.Add(newTrip);
-                    //travelManager.Travels.Add(newTrip);
                     travelManager.AddTravel(newTrip);
                     newTrip.PackingList.AddRange(packingList);
                 }
@@ -163,12 +159,12 @@ namespace TravelPal
 
                     if (xbAllInclusive.IsChecked == true)
                     {
-                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, true);
+                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, true, signedInUser);
 
                     }
                     else
                     {
-                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, false);
+                        newVacation = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, false, signedInUser);
                     }
                     travelManager.AddTravel(newVacation);
                     newVacation.PackingList.AddRange(packingList);
