@@ -16,6 +16,7 @@ namespace TravelPal.Models
             TripType = tripType;
         }
 
+        // Returns interpolated string containing information about the travel (Destination country and travel duration)
         public override string GetInfo()
         {
             return base.GetInfo();

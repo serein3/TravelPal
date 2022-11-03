@@ -24,7 +24,7 @@ namespace TravelPal
 
     public partial class AddTravelWindow : Window
     {
-        // TODO Refractor this shit it's such a mess, also test packinglist for bugs but if it works just look if it can be done better because yes messy
+        // TODO Refactor this shit it's such a mess, also test packinglist for bugs but if it works just look if it can be done better because yes messy
         private UserManager userManager;
         private TravelManager travelManager;
         private User signedInUser;
@@ -42,10 +42,8 @@ namespace TravelPal
             cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
 
-
-            // ADD A CHECK LATER FOR GOING BACK IN TIME WITH THE BOOKING
             dpStartingDate.DisplayDateStart = DateTime.Now;
-            dpEndingDate.DisplayDateStart = DateTime.Now.AddDays(1);
+            dpEndingDate.DisplayDateStart = DateTime.Now;
 
         }
 
@@ -66,16 +64,16 @@ namespace TravelPal
             return false;
         }
 
-        private bool DetermineDocumentRequired()
+        private bool DetermineIfDocumentRequired()
         {
             string userLocation = signedInUser.Location.ToString();
             string travelLocation = cbDetailsCountry.SelectedItem.ToString();
 
-            if (Enum.TryParse<EuropeanCountries>(userLocation, out EuropeanCountries idk1) && !Enum.TryParse<EuropeanCountries>(travelLocation, out EuropeanCountries idk2))
+            if (Enum.TryParse<EuropeanCountries>(userLocation, out EuropeanCountries result1) && !Enum.TryParse<EuropeanCountries>(travelLocation, out EuropeanCountries result2))
             {
                 return true;
             }
-            else if (Enum.TryParse<EuropeanCountries>(userLocation, out EuropeanCountries idk3) && Enum.TryParse<EuropeanCountries>(travelLocation, out EuropeanCountries idk4))
+            else if (Enum.TryParse<EuropeanCountries>(userLocation, out EuropeanCountries result3) && Enum.TryParse<EuropeanCountries>(travelLocation, out EuropeanCountries result4))
             {
                 return false;
             }
@@ -137,16 +135,17 @@ namespace TravelPal
                     else
                     {
                         MessageBox.Show("Please input a valid amount of travellers!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("How you gon' travel back in time? Ending date has to be later than starting date yo", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return false;
                 }
             }
-            MessageBox.Show("All fields must be filled!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+            {
+                MessageBox.Show("All fields must be filled!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             return false;
         }
 
@@ -191,7 +190,7 @@ namespace TravelPal
         private void cbDetailsCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            if (DetermineDocumentRequired())
+            if (DetermineIfDocumentRequired())
             {
 
                 if (lvPackingList.Items.Count > 0)

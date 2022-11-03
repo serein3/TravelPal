@@ -32,9 +32,14 @@ namespace TravelPal.Models
             Owner = owner;
         }
 
+        // Returns interpolated string containing information about the travel (Destination country and travel duration)
         public virtual string GetInfo()
         {
-            return $"{Country} | Travel Duration: {CalculateTravelDays()}";
+            if (CalculateTravelDays() < 1)
+            {
+                return $"{Country} | Travel Duration: Less than a day";
+            }
+            return $"{Country} | Travel Duration: {CalculateTravelDays()} day(s)";
         }
 
         private int CalculateTravelDays()

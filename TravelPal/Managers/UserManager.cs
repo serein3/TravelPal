@@ -17,10 +17,11 @@ namespace TravelPal.Managers
 
         public UserManager()
         {
-            GenerateDefaultUsers();
+            CreateDefaultUsers();
         }
 
-        private void GenerateDefaultUsers()
+        // Creates default users (one standard user with 2 trips and one admin) for testing purposes
+        private void CreateDefaultUsers()
         {
             Admin admin = new("admin", "password", Countries.Japan);
             Users.Add(admin);
@@ -41,6 +42,7 @@ namespace TravelPal.Managers
             gandalf.Travels.Add(trip1);
         }
 
+        // Adds user to the users list if validation is successful
         public bool AddUser(IUser newUser)
         {
             if (ValidateUsername(newUser.Username))
@@ -51,6 +53,8 @@ namespace TravelPal.Managers
             return false;
         }
 
+
+        // Updates username, password and location of user that is currently signed in
         public bool UpdateUser(IUser userToUpdate)
         {
             if (ValidateUsername(userToUpdate.Username) || userToUpdate.Username == SignedInUser.Username)
@@ -68,6 +72,7 @@ namespace TravelPal.Managers
             return false;
         }
         
+        // Checks if provided username length is at least 3 characters long
         public bool ValidateUsernameLength(string username)
         {
             if (username.Length < 3)
@@ -77,6 +82,7 @@ namespace TravelPal.Managers
             return true;
         }
 
+        // Checks if provided password length is at least 5 characters long
         public bool ValidatePasswordLength(string password)
         {
             if (password.Length < 5)
@@ -86,6 +92,7 @@ namespace TravelPal.Managers
             return true;
         }
 
+        // Checks if provided username already exists in the users list, if not = validation successful and username can be used
         private bool ValidateUsername(string username)
         {
             foreach (IUser user in Users)
@@ -98,6 +105,7 @@ namespace TravelPal.Managers
             return true;
         }
 
+        // Checks whether user with provided username and password exists in the users list. If true, sets SignedInUSer to that user and returns true.
         public bool SignInUser(string username, string password)
         {
 
@@ -112,6 +120,7 @@ namespace TravelPal.Managers
             return false;
         }
 
+        // Check if currently signed in user is an admin
         public bool CheckIfAdmin()
         {
             if (SignedInUser is Admin)

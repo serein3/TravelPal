@@ -35,10 +35,11 @@ namespace TravelPal
             cbTravelType.ItemsSource = travelManager.TravelTypes;
             cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
             UpdateUI();
-            PopulatePackingList();
+            PopulatePackingListView();
         }
 
-        private void PopulatePackingList()
+        // Populates the packing list listview with selected travel's packing list items
+        private void PopulatePackingListView()
         {
             foreach (IPackingListItem item in travel.PackingList)
             {
@@ -48,6 +49,8 @@ namespace TravelPal
                 lvDetailsPackingList.Items.Add(listViewItem);
             }
         }
+
+        // Locks all fields and sets them according to selected travel's information
         private void UpdateUI()
         {
             dpStartingDate.IsEnabled = false;
@@ -70,6 +73,7 @@ namespace TravelPal
 
         }
 
+        // Determines whether the selected travel is a trip or a vacation, selects the correct one in the ComboBox and updates the additional fields accordingly
         private void DetermineTripType()
         {
             if (travel is Trip)

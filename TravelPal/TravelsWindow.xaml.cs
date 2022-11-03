@@ -81,7 +81,7 @@ namespace TravelPal
             }
         }
 
-        // Creates new instance of mainwindow, passing all necessary information and closes this window
+        // Creates new instance of MainWindow, passing all necessary information and closes this window
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new(userManager, travelManager);
@@ -89,18 +89,21 @@ namespace TravelPal
             this.Close();
         }
 
+        // Creates a new instance of UserDetailsWindow, passing necessary information
         private void btnUser_Click(object sender, RoutedEventArgs e)
         {
             UserDetailsWindow userDetailsWindow = new(userManager, this);
             userDetailsWindow.ShowDialog();
         }
 
+        // Displays MessageBox with some info
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("TravelPal is a company for travelling or something... This app allows you to easily track your travels!!!\n\nYou can see your travels in the list below." +
                 " In order to add, remove, or update your travels, use the buttons you silly goose.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        // Based on user type, performs the appropriate remove action for a selected travel. In case of no selection, displays MessageBox to user informing what is wrong
         private void btnTravelRemove_Click(object sender, RoutedEventArgs e)
         {
             if (lvTravels.SelectedItem != null)
@@ -124,12 +127,14 @@ namespace TravelPal
             }
         }
 
+        // Creates a new instance of AddTravelWindow, passing all necessary information
         private void btnTravelAdd_Click(object sender, RoutedEventArgs e)
         {
             AddTravelWindow addTravelWindow = new(userManager, travelManager);
             addTravelWindow.ShowDialog();
         }
 
+        // Creates a new instance of TravelDetailsWindow displaying details about selected travel, passing all necessary information. In case of no selection, displays MessageBox to user informing what is wrong
         private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
         {
             TravelDetailsWindow travelDetailsWindow;
@@ -147,6 +152,7 @@ namespace TravelPal
             }
         }
 
+        // Event that triggers every time window gets activated, making sure travel list is updated after any possible changes
         private void Window_Activated(object sender, EventArgs e)
         {
             lvTravels.Items.Clear();

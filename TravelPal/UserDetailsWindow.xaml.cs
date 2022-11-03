@@ -29,10 +29,11 @@ namespace TravelPal
             InitializeComponent();
             this.userManager = userManager;
             this.travelsWindow = travelsWindow;
-            cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries)); // TODO Display descriptions instead of names with underscores
+            cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
             SetUserDetails();
         }
 
+        // Sets fields accordingly, using currently signed in user's information
         private void SetUserDetails()
         {
             tbDetailsUsername.Text = userManager.SignedInUser.Username;
@@ -40,17 +41,41 @@ namespace TravelPal
             cbDetailsCountry.SelectedIndex = (int)userManager.SignedInUser.Location;
         }
 
+        // Closes this window
         private void btnUserDetailsCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        // If input is valid, checks if username is available, if true, updates all user information. If not, displays message to user informing what is wrong
         private void btnUserDetailsSave_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (ValidateInput())
+            {
+                User user = new(tbDetailsUsername.Text, pbDetailsPassword.Password, (Countries)cbDetailsCountry.SelectedItem);
+
+                if (userManager.UpdateUser(user))
+                {
+                    MessageBox.Show("Changes saved!");
+                    travelsWindow.UpdateWelcomeMessage();
+                    Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Username not available!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        // Checks if all fields are filled correctly, displays information to user if an input is incorrect
+        private bool ValidateInput()
         {
             bool isValidUsernameLength = userManager.ValidateUsernameLength(tbDetailsUsername.Text);
             bool isValidPasswordLength = userManager.ValidatePasswordLength(pbDetailsPassword.Password);
 
-            if (!string.IsNullOrEmpty(tbDetailsUsername.Text) && !string.IsNullOrEmpty(pbDetailsPassword.Password) && !string.IsNullOrEmpty(pbDetailsConfirmPassword.Password) && cbDetailsCountry != null)
+            if (!string.IsNullOrEmpty(tbDetailsUsername.Text) && !string.IsNullOrEmpty(pbDetailsPassword.Password) && !string.IsNullOrEmpty(pbDetailsConfirmPassword.Password))
             {
                 if (isValidUsernameLength)
                 {
@@ -58,19 +83,7 @@ namespace TravelPal
                     {
                         if (pbDetailsPassword.Password == pbDetailsConfirmPassword.Password)
                         {
-                            User user = new(tbDetailsUsername.Text, pbDetailsPassword.Password, (Countries)cbDetailsCountry.SelectedItem);
-
-                            if (userManager.UpdateUser(user))
-                            {
-                                MessageBox.Show("Changes saved!");
-                                travelsWindow.UpdateWelcomeMessage();
-                                Close();
-
-                            }
-                            else
-                            {
-                                MessageBox.Show("Username not available!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            }
+                            return true;
                         }
                         else
                         {
@@ -92,8 +105,10 @@ namespace TravelPal
             {
                 MessageBox.Show("All fields must be filled!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            return false;
         }
 
+        // Event that triggers when PasswordBox is clicked, clearing the field for convenience
         private void pbDetailsPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             pbDetailsPassword.Clear();

@@ -17,6 +17,7 @@ namespace TravelPal.Models
             AllInclusive = allInclusive;
         }
 
+        // Returns interpolated string containing information about the travel (Destination country and travel duration)
         public override string GetInfo()
         {
             return base.GetInfo();

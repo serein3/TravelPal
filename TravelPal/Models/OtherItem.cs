@@ -18,9 +18,11 @@ namespace TravelPal.Models
             Quantity = quantity;
         }
 
+
+        // Returns interpolated string containing information about the item (Quantity and name of item)
         public string GetInfo()
         {
-            return $"{Quantity} {Name}(s)";
+            return $"{Quantity}x {Name}";
         }
     }
 }

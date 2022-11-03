@@ -18,6 +18,7 @@ namespace TravelPal.Models
             Required = required;
         }
 
+        // Returns interpolated string containing the name of the traveldocument as well as whether it is required or not
         public string GetInfo()
         {
             string requiredMessage;
