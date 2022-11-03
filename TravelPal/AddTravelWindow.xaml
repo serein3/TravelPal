@@ -40,7 +40,7 @@
                 <ComboBox Name="cbTravelType" Style="{StaticResource travelPalComboBox}" SelectionChanged="cbTravelType_SelectionChanged"/>
                 <CheckBox Name="xbAllInclusive" Visibility="Hidden" Content="All Inclusive" VerticalContentAlignment="Center"/>
                 <TextBlock Name="txtTripType" Visibility="Hidden" Text="Trip Type" Margin="0, 0, 0, 0"/>
-                <ComboBox Name="cbTripTypeOrAllInclusive" Visibility="Hidden" Style="{StaticResource travelPalComboBox}"/>
+                <ComboBox Name="cbTripType" Visibility="Hidden" Style="{StaticResource travelPalComboBox}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="20, 20, 0, 0">

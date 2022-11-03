@@ -37,7 +37,7 @@ namespace TravelPal
 
             cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
             cbTravelType.ItemsSource = travelManager.TravelTypes;
-            cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
+            cbTripType.ItemsSource = Enum.GetValues(typeof(TripTypes));
 
             dpStartingDate.DisplayDateStart = DateTime.Now;
             dpEndingDate.DisplayDateStart = DateTime.Now;
@@ -103,13 +103,13 @@ namespace TravelPal
             {
                 xbAllInclusive.Visibility = Visibility.Hidden;
                 txtTripType.Visibility = Visibility.Visible;
-                cbTripTypeOrAllInclusive.Visibility = Visibility.Visible;
-                cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
+                cbTripType.Visibility = Visibility.Visible;
+                cbTripType.ItemsSource = Enum.GetValues(typeof(TripTypes));
             }
             else if (travelType == "Vacation")
             {
                 txtTripType.Visibility = Visibility.Hidden;
-                cbTripTypeOrAllInclusive.Visibility = Visibility.Hidden;
+                cbTripType.Visibility = Visibility.Hidden;
                 xbAllInclusive.Visibility = Visibility.Visible;
             }
         }
@@ -125,7 +125,7 @@ namespace TravelPal
                     {
                         if (DetermineTravelType() == "Trip")
                         {
-                            if (cbTripTypeOrAllInclusive.SelectedItem != null)
+                            if (cbTripType.SelectedItem != null)
                             {
                                 return true;
                             }
@@ -164,7 +164,7 @@ namespace TravelPal
             {
                 if (DetermineTravelType() == "Trip")
                 {
-                    Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem, signedInUser);
+                    Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripType.SelectedItem, signedInUser);
                     travelManager.AddTravel(newTrip);
                     newTrip.PackingList.AddRange(packingList);
                 }

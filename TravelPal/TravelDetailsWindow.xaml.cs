@@ -33,7 +33,7 @@ namespace TravelPal
             this.travelManager = travelManager;
             cbDetailsCountry.ItemsSource = Enum.GetValues(typeof(Countries));
             cbTravelType.ItemsSource = travelManager.TravelTypes;
-            cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
+            cbTripType.ItemsSource = Enum.GetValues(typeof(TripTypes));
             UpdateUI();
             PopulatePackingListView();
         }
@@ -59,7 +59,7 @@ namespace TravelPal
             cbDetailsCountry.IsEnabled = false;
             tbTravelers.IsEnabled = false;
             cbTravelType.IsEnabled = false;
-            cbTripTypeOrAllInclusive.IsEnabled = false;
+            cbTripType.IsEnabled = false;
             xbAllInclusive.IsEnabled = false;
 
             dpStartingDate.Text = travel.StartDate.ToString();
@@ -82,9 +82,9 @@ namespace TravelPal
 
                 cbTravelType.SelectedItem = "Trip";
                 txtTripType.Visibility = Visibility.Visible;
-                cbTripTypeOrAllInclusive.Visibility = Visibility.Visible;
-                cbTripTypeOrAllInclusive.ItemsSource = Enum.GetValues(typeof(TripTypes));
-                cbTripTypeOrAllInclusive.SelectedItem = trip.TripType;
+                cbTripType.Visibility = Visibility.Visible;
+                cbTripType.ItemsSource = Enum.GetValues(typeof(TripTypes));
+                cbTripType.SelectedItem = trip.TripType;
             }
             else if (travel is Vacation)
             {
