@@ -25,16 +25,13 @@ namespace TravelPal
     public partial class AddTravelWindow : Window
     {
         // TODO Refactor this shit it's such a mess, also test packinglist for bugs but if it works just look if it can be done better because yes messy
-        private UserManager userManager;
         private TravelManager travelManager;
-        private User signedInUser;
-        private ListViewItem listViewItem;
+        private User? signedInUser;
         private ListViewItem packingListViewItem = new();
         private List<IPackingListItem> packingList = new();
         public AddTravelWindow(UserManager userManager, TravelManager travelManager)
         {
             InitializeComponent();
-            this.userManager = userManager;
             this.travelManager = travelManager;
             this.signedInUser = userManager.SignedInUser as User;
 
@@ -48,6 +45,7 @@ namespace TravelPal
         }
 
 
+        // Clears the packing list fields
         private void ClearPackingListUI()
         {
             tbItemName.Clear();
@@ -55,6 +53,8 @@ namespace TravelPal
             xbDocument.IsChecked = false;
             xbRequired.IsChecked = false;
         }
+
+        // Checks if the required checkbox is checked
         private bool CheckIfRequiredIsChecked()
         {
             if (xbRequired.IsChecked == true)
@@ -64,6 +64,7 @@ namespace TravelPal
             return false;
         }
 
+        // Determines whether a passport is required or not, based on user location and travel destination
         private bool DetermineIfDocumentRequired()
         {
             string userLocation = signedInUser.Location.ToString();
@@ -80,6 +81,7 @@ namespace TravelPal
             return true;
         }
 
+        // Determines the travel type (Trip or Vacation)
         private string DetermineTravelType()
         {
             if (cbTravelType.SelectedItem != null)
@@ -96,6 +98,7 @@ namespace TravelPal
             return null;
         }
 
+        // Modifies the UI based on whether Trip or Vacation has been selected
         private void ModifyTravelTypeUI(string travelType)
         {
             if (travelType == "Trip")
@@ -112,6 +115,8 @@ namespace TravelPal
                 xbAllInclusive.Visibility = Visibility.Visible;
             }
         }
+
+        // Checks if all fields are filled correctly, displays information to user if an input is incorrect
         private bool ValidateInput()
         {
             if (dpStartingDate.SelectedDate != null && dpEndingDate.SelectedDate != null && !string.IsNullOrEmpty(tbDestination.Text) && !string.IsNullOrEmpty(tbTravelers.Text) && cbTravelType.SelectedItem != null && cbDetailsCountry.SelectedItem != null)
@@ -125,6 +130,11 @@ namespace TravelPal
                             if (cbTripTypeOrAllInclusive.SelectedItem != null)
                             {
                                 return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Please choose a trip type!", "warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return false;
                             }
                         }
                         else if (DetermineTravelType() == "Vacation")
@@ -149,6 +159,7 @@ namespace TravelPal
             return false;
         }
 
+        // If input validation is successful - creates the appropriate travel type and adds it to the general travels list as well as currently signed in user's travels list together with packing list and notifies user adding was successful
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateInput())
@@ -156,7 +167,6 @@ namespace TravelPal
                 if (DetermineTravelType() == "Trip")
                 {
                     Trip newTrip = new(tbDestination.Text, (Countries)cbDetailsCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text), (DateTime)dpStartingDate.SelectedDate, (DateTime)dpEndingDate.SelectedDate, (TripTypes)cbTripTypeOrAllInclusive.SelectedItem, signedInUser);
-                    // TODO POSSIBLY REFRACTOR THIS SHIT INTO ITS OWN ADDPACKINGLISTITEM METHOD OR SOMETHING ALSO BELOW
                     travelManager.AddTravel(newTrip);
                     newTrip.PackingList.AddRange(packingList);
                 }
@@ -182,17 +192,18 @@ namespace TravelPal
             }
         }
 
+        // Modifies the UI based on chosen travel type every time it is changed
         private void cbTravelType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ModifyTravelTypeUI(DetermineTravelType());
         }
 
+        // When country selection is changed, checks whether 
         private void cbDetailsCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             if (DetermineIfDocumentRequired())
             {
-
                 if (lvPackingList.Items.Count > 0)
                 {
                     lvPackingList.Items.Remove(packingListViewItem);

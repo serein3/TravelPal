@@ -23,7 +23,7 @@ namespace TravelPal
     {
         private UserManager userManager;
         private TravelManager travelManager;
-        private User signedInUser;
+        private User? signedInUser;
         private bool isAdmin;
         public TravelsWindow(UserManager userManager, TravelManager travelManager, bool isAdmin)
         {

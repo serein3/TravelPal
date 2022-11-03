@@ -23,7 +23,7 @@ namespace TravelPal
     public partial class MainWindow : Window
     {
         private UserManager userManager;
-        private TravelManager travelManager;
+        private TravelManager? travelManager;
         public MainWindow()
         {
             InitializeComponent();
