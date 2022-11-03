@@ -41,9 +41,7 @@ namespace TravelPal
 
             dpStartingDate.DisplayDateStart = DateTime.Now;
             dpEndingDate.DisplayDateStart = DateTime.Now;
-
         }
-
 
         // Clears the packing list fields
         private void ClearPackingListUI()
@@ -198,7 +196,7 @@ namespace TravelPal
             ModifyTravelTypeUI(DetermineTravelType());
         }
 
-        // When country selection is changed, checks whether 
+        // Whenever country selection is changed, checks if passport is required and adds/updates passport item in user's packing list and listview
         private void cbDetailsCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -232,6 +230,7 @@ namespace TravelPal
             }
         }
 
+        // If there is a selection, removes item from packing list of user and listview, otherwise shows warning message
         private void btnPackingListRemove_Click(object sender, RoutedEventArgs e)
         {
             if (lvPackingList.SelectedItem != null)
@@ -247,6 +246,7 @@ namespace TravelPal
             }
         }
 
+        // Shows required checkbox and hides quantity input
         private void xbDocument_Checked(object sender, RoutedEventArgs e)
         {
             xbRequired.Visibility = Visibility.Visible;
@@ -254,6 +254,7 @@ namespace TravelPal
             txtQuantity.Visibility = Visibility.Hidden;
         }
 
+        // Unchecks checked checkbox, hides required checkbox and shows quantity input
         private void xbDocument_Unchecked(object sender, RoutedEventArgs e)
         {
             xbRequired.IsChecked = false;
@@ -262,6 +263,7 @@ namespace TravelPal
             txtQuantity.Visibility = Visibility.Visible;
         }
 
+        // Validates if name and quantity input is valid and adds item to user's packing list and listview
         private void btnPackingListAdd_Click(object sender, RoutedEventArgs e)
         {
             bool isRequired = CheckIfRequiredIsChecked();
