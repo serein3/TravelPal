@@ -5,9 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal" Height="620" Width="680" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
-    <Border Padding="20">
-        <StackPanel>
+        Title="TravelPal - Travels"
+        Height="620" 
+        Width="680" 
+        FontSize="20" 
+        Background="Transparent" 
+        WindowStartupLocation="CenterScreen" 
+        Activated="Window_Activated"
+        ResizeMode="NoResize" 
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <Grid>
+        <Border CornerRadius="36">
+            <Border.Background>
+                <ImageBrush ImageSource="Images/airplane.jpg"/>
+            </Border.Background>
+            <Border CornerRadius="36"
+        BorderBrush="#5151f9"
+        BorderThickness="3"
+        Opacity="0.8">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="MediumSlateBlue" Offset="0"/>
+                        <GradientStop Color="#6a6afa" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="16"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Content="TravelPal"
+                        Foreground="White"
+                        FontSize="20"
+                        FontFamily="Arial"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="16, 0, 0 ,0"/>
+
+                        <Button 
+                        Name="btnMinimize"
+                        BorderThickness="0"
+                        Background="CornflowerBlue"
+                        Content="-"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="1" 
+                        Height="30" 
+                        VerticalAlignment="Top" 
+                        Click="btnMinimize_Click">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter 
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+
+                        <Button 
+                        Name="btnClose"
+                        BorderThickness="0"
+                        Background="Maroon"
+                        Content="x"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="2" Click="btnClose_Click"
+                        >
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+
+        <StackPanel Margin="10, 40, 10 ,0" >
             <TextBlock Name="txtWelcome" FontSize="32"/>
             <StackPanel Orientation="Horizontal" Margin="0, 20, 0 ,20">
                 <Button Name="btnUser" Content="User" Width="140" Margin="0, 0, 40, 0" Style="{StaticResource travelPalButtons}" Click="btnUser_Click"/>
@@ -23,5 +134,6 @@
 
             </StackPanel>
         </StackPanel>
-    </Border>
+        
+    </Grid>
 </Window>

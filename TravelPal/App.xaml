@@ -18,6 +18,23 @@
         <!-- BUTTON-->
         <Style TargetType="Button" x:Key="travelPalButtons">
             <Setter Property="Background" Value="MintCream"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate> 
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#dcffed"/>
+                </Trigger>
+            </Style.Triggers>
+
         </Style>
 
         <!-- LISTVIEW -->

@@ -5,9 +5,117 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal - Add Travel" Height="620" Width="920" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
-    <Border Padding="20">
-        <Grid>
+        Title="TravelPal - Add Travel" 
+        Height="620" 
+        Width="920" 
+        FontSize="20" 
+        Background="Transparent" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" 
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown" >
+
+    <Grid>
+        <Border CornerRadius="36">
+            <Border.Background>
+                <ImageBrush ImageSource="Images/TravelPalPalm.jpeg"/>
+            </Border.Background>
+            <Border CornerRadius="36"
+        BorderBrush="#5151f9"
+        BorderThickness="3"
+        Opacity="0.8">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="MediumSlateBlue" Offset="0"/>
+                        <GradientStop Color="#6a6afa" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="16"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Content="TravelPal"
+                        Foreground="White"
+                        FontSize="20"
+                        FontFamily="Arial"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="16, 0, 0 ,0"/>
+
+                        <Button 
+                        Name="btnMinimize"
+                        BorderThickness="0"
+                        Background="CornflowerBlue"
+                        Content="-"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="1" 
+                        Click="btnMinimize_Click">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter 
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+
+                        <Button 
+                        Name="btnClose"
+                        BorderThickness="0"
+                        Background="Maroon"
+                        Content="x"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="2" 
+                        Click="btnClose_Click">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+
+        <Grid Margin="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -19,53 +127,168 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <TextBlock Text="Add New Travel" FontSize="30"/>
+                
+                <TextBlock 
+                    Text="Add New Travel" 
+                    FontSize="30"/>
+                
             </StackPanel>
 
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="0, 20, 0, 0">
-                <TextBlock Text="Starting Date"/>
-                <DatePicker Name="dpStartingDate" Background="MintCream"/>
-                <TextBlock Text="Ending Date" Margin="0, 20, 0 ,0"/>
-                <DatePicker Name="dpEndingDate" Background="MintCream"/>
+                
+                <TextBlock 
+                    Text="Starting Date"/>
+                
+                <DatePicker 
+                    Name="dpStartingDate" 
+                    Background="MintCream"/>
+                
+                <TextBlock 
+                    Text="Ending Date" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <DatePicker 
+                    Name="dpEndingDate" 
+                    Background="MintCream"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="1" Margin="20, 20 ,0, 0">
-                <TextBlock Text="Destination"/>
-                <TextBox Name="tbDestination"  Style="{StaticResource travelPalTextBoxes}"/>
-                <TextBlock Text="Country" Margin="0, 20, 0 ,0"/>
-                <ComboBox Name="cbDetailsCountry" Style="{StaticResource travelPalComboBox}" SelectionChanged="cbDetailsCountry_SelectionChanged"/>
-                <TextBlock Text="Travelers" Margin="0, 20, 0 ,0"/>
-                <TextBox Name="tbTravelers"  Style="{StaticResource travelPalTextBoxes}"/>
-                <TextBlock Text="Travel Type" Margin="0, 20, 0 ,0"/>
-                <ComboBox Name="cbTravelType" Style="{StaticResource travelPalComboBox}" SelectionChanged="cbTravelType_SelectionChanged"/>
-                <CheckBox Name="xbAllInclusive" Visibility="Hidden" Content="All Inclusive" VerticalContentAlignment="Center"/>
-                <TextBlock Name="txtTripType" Visibility="Hidden" Text="Trip Type" Margin="0, 0, 0, 0"/>
-                <ComboBox Name="cbTripType" Visibility="Hidden" Style="{StaticResource travelPalComboBox}"/>
+                
+                <TextBlock 
+                    Text="Destination"/>
+                
+                <TextBox 
+                    Name="tbDestination" 
+                    Style="{StaticResource travelPalTextBoxes}"/>
+                
+                <TextBlock 
+                    Text="Country" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <ComboBox 
+                    Name="cbDetailsCountry" 
+                    Style="{StaticResource travelPalComboBox}" 
+                    SelectionChanged="cbDetailsCountry_SelectionChanged"/>
+                
+                <TextBlock 
+                    Text="Travelers" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <TextBox 
+                    Name="tbTravelers" 
+                    Style="{StaticResource travelPalTextBoxes}"/>
+                
+                <TextBlock 
+                    Text="Travel Type" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <ComboBox 
+                    Name="cbTravelType" 
+                    Style="{StaticResource travelPalComboBox}" 
+                    SelectionChanged="cbTravelType_SelectionChanged"/>
+                
+                <CheckBox 
+                    Name="xbAllInclusive" 
+                    Visibility="Hidden" 
+                    Content="All Inclusive" 
+                    VerticalContentAlignment="Center"/>
+                
+                <TextBlock 
+                    Name="txtTripType" 
+                    Visibility="Hidden" 
+                    Text="Trip Type" Margin="0, 0, 0, 0"/>
+                
+                <ComboBox 
+                    Name="cbTripType" 
+                    Visibility="Hidden" 
+                    Style="{StaticResource travelPalComboBox}"/>
+                
             </StackPanel>
 
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="20, 20, 0, 0">
-                <TextBlock Text="Item Name"/>
-                <TextBox Name="tbItemName" Style="{StaticResource travelPalTextBoxes}"/>
+                
+                <TextBlock 
+                    Text="Item Name"/>
+                
+                <TextBox 
+                    Name="tbItemName" 
+                    Style="{StaticResource travelPalTextBoxes}"/>
+                
                 <StackPanel Margin="0, 10, 0 ,0" Orientation="Horizontal">
-                    <CheckBox Name="xbDocument" VerticalContentAlignment="Center" Content="Document" FontSize="18" Checked="xbDocument_Checked" Unchecked="xbDocument_Unchecked"/>
-                    <CheckBox Name="xbRequired" Visibility="Hidden" VerticalContentAlignment="Center" Content="Required" FontSize="18" Margin="20, 0 ,0 ,0"/>
-                </StackPanel>    
-                <TextBlock Name="txtQuantity" Text="Quantity" Margin="0, 20, 0 ,0"/>
-                <TextBox Name="tbQuantity" Style="{StaticResource travelPalTextBoxes}"/>
-                <TextBlock Text="Packing List" Margin="0, 20, 0 ,0"/>
-                <ListView Name="lvPackingList" Height="140" Style="{StaticResource travelPalListView}"/>
+                    
+                    <CheckBox 
+                        Name="xbDocument" 
+                        VerticalContentAlignment="Center" 
+                        Content="Document" 
+                        FontSize="18" 
+                        Checked="xbDocument_Checked" 
+                        Unchecked="xbDocument_Unchecked"/>
+                    
+                    <CheckBox 
+                        Name="xbRequired" 
+                        Visibility="Hidden" 
+                        VerticalContentAlignment="Center" 
+                        Content="Required" 
+                        FontSize="18" 
+                        Margin="20, 0 ,0 ,0"/>
+                    
+                </StackPanel>
+                
+                <TextBlock 
+                    Name="txtQuantity" 
+                    Text="Quantity" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <TextBox 
+                    Name="tbQuantity" 
+                    Style="{StaticResource travelPalTextBoxes}"/>
+                
+                <TextBlock 
+                    Text="Packing List" 
+                    Margin="0, 20, 0 ,0"/>
+                
+                <ListView 
+                    Name="lvPackingList" 
+                    Height="140" 
+                    Style="{StaticResource travelPalListView}"/>
+                
             </StackPanel>
 
             <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="2">
-                <Button Name="btnAddTravel" IsDefault="True" Content="Add Travel" Width="200" Height="31" Style="{StaticResource travelPalButtons}" Click="btnAddTravel_Click"/>
+                
+                <Button 
+                    Name="btnAddTravel" 
+                    IsDefault="True" 
+                    Content="Add Travel" 
+                    Width="200" Height="31" 
+                    Style="{StaticResource travelPalButtons}" 
+                    Click="btnAddTravel_Click"/>
+                
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="3">
-                <Button Name="btnPackingListAdd"  Content="Add" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}" Click="btnPackingListAdd_Click"/>
-                <Button Name="btnPackingListRemove" Content="Remove" Width="120" Height="31" Margin="20, 0 ,0 ,0" Style="{StaticResource travelPalButtons}" Click="btnPackingListRemove_Click"/>
+                
+                <Button 
+                    Name="btnPackingListAdd"
+                    Content="Add" Width="120" 
+                    Height="31" Margin="20, 0 ,0 ,0" 
+                    Style="{StaticResource travelPalButtons}" 
+                    Click="btnPackingListAdd_Click"/>
+                
+                <Button 
+                    Name="btnPackingListRemove" 
+                    Content="Remove" 
+                    Width="120" 
+                    Height="31" 
+                    Margin="20, 0 ,0 ,0" 
+                    Style="{StaticResource travelPalButtons}" 
+                    Click="btnPackingListRemove_Click"/>
+                
             </StackPanel>
 
         </Grid>
-    </Border>
+
+    </Grid>
+
 
 </Window>

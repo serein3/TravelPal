@@ -99,8 +99,7 @@ namespace TravelPal
         // Displays MessageBox with some info
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TravelPal is a company for travelling or something... This app allows you to easily track your travels!!!\n\nYou can see your travels in the list below." +
-                " In order to add, remove, or update your travels, use the buttons you silly goose.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("" + "Use the buttons below in order to add, edit or view your existing travels. \n\nWhen adding a new travel, do not hesitate to use the packing list feature to keep track of all your necessities!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Based on user type, performs the appropriate remove action for a selected travel. In case of no selection, displays MessageBox to user informing what is wrong
@@ -157,6 +156,24 @@ namespace TravelPal
         {
             lvTravels.Items.Clear();
             UpdateTravelsList();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

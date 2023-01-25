@@ -5,23 +5,178 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal - User Details" Height="520" Width="520" FontSize="20" Background="MediumSlateBlue" WindowStartupLocation="CenterScreen">
+        Title="TravelPal - User Details" 
+        Height="520" 
+        Width="520" 
+        FontSize="20" 
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
 
-    <Border Padding="20">
-        <StackPanel>
-            <TextBlock Text="User Details" FontSize="36"/>
-            <TextBlock Text="Username" Margin="0, 20, 0, 0"/>
-            <TextBox Name="tbDetailsUsername"/>
-            <TextBlock Text="Password" Margin="0, 20, 0, 0"/>
-            <PasswordBox Name="pbDetailsPassword" Style="{StaticResource travelPassPasswordBoxes}" PreviewMouseDown="pbDetailsPassword_PreviewMouseDown"/>
-            <TextBlock Text="Confirm Password" Margin="0, 20, 0, 0"/>
-            <PasswordBox Name="pbDetailsConfirmPassword" Style="{StaticResource travelPassPasswordBoxes}"/>
-            <TextBlock Text="Country" Margin="0, 20, 0 ,0"/>
-            <ComboBox Name="cbDetailsCountry" Style="{StaticResource travelPalComboBox}"/>
-            <StackPanel Orientation="Horizontal">
-                <Button Name="btnUserDetailsSave" IsDefault="True" Content="Save" Margin="0, 32, 0 ,0" HorizontalAlignment="Left" Width="120" Height="31" Style="{StaticResource travelPalButtons}" Click="btnUserDetailsSave_Click"/>
-                <Button Name="btnUserDetailsCancel" Content="Cancel" Margin="20, 32, 0 ,0" HorizontalAlignment="Left" Width="120" Height="31" Style="{StaticResource travelPalButtons}" Click="btnUserDetailsCancel_Click"/>
+
+    <Grid>
+        <Border CornerRadius="36">
+            <Border.Background>
+                <ImageBrush ImageSource="Images/airplane.jpg"/>
+            </Border.Background>
+            <Border CornerRadius="36"
+        BorderBrush="#5151f9"
+        BorderThickness="3"
+        Opacity="0.8">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="MediumSlateBlue" Offset="0"/>
+                        <GradientStop Color="#6a6afa" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="16"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Content="TravelPal"
+                        Foreground="White"
+                        FontSize="20"
+                        FontFamily="Arial"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="16, 0, 0 ,0"/>
+
+                        <Button 
+                        Name="btnMinimize"
+                        BorderThickness="0"
+                        Background="CornflowerBlue"
+                        Content="-"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        Click="btnMinimize_Click">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+
+                        <Button 
+                        Name="btnClose"
+                        BorderThickness="0"
+                        Background="Maroon"
+                        Content="x"
+                        FontSize="16"
+                        FontFamily="Monsterrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center" 
+                        Width="25" Height="30" 
+                        VerticalAlignment="Top" 
+                        Click="btnClose_Click">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+
+        <StackPanel Grid.Row="2" Width="280" Margin="0, 80, 0, 20">
+            <StackPanel>
+                <TextBlock 
+                    Text="User Details"
+                    FontSize="18"
+                    FontWeight="Bold"/>
+
+                <TextBlock 
+                    Text="Username" 
+                    Margin="0, 20, 0, 0"/>
+
+                <TextBox 
+                    Name="tbDetailsUsername"/>
+
+                <TextBlock 
+                    Text="Password" 
+                    Margin="0, 20, 0, 0"/>
+
+                <PasswordBox 
+                    Name="pbDetailsPassword" 
+                    Style="{StaticResource travelPassPasswordBoxes}" 
+                    PreviewMouseDown="pbDetailsPassword_PreviewMouseDown"/>
+
+                <TextBlock 
+                    Text="Confirm Password" 
+                    Margin="0, 20, 0, 0"/>
+
+                <PasswordBox 
+                    Name="pbDetailsConfirmPassword" 
+                    Style="{StaticResource travelPassPasswordBoxes}"/>
+
+                <TextBlock 
+                    Text="Country" 
+                    Margin="0, 20, 0 ,0"/>
+
+                <ComboBox 
+                    Name="cbDetailsCountry" 
+                    Style="{StaticResource travelPalComboBox}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button 
+                        Name="btnUserDetailsSave" 
+                        IsDefault="True"
+                        Content="Save" 
+                        Margin="0, 32, 0 ,0" 
+                        HorizontalAlignment="Left" 
+                        Width="120" Height="31" 
+                        Style="{StaticResource travelPalButtons}" Click="btnUserDetailsSave_Click"/>
+
+                    <Button 
+                        Name="btnUserDetailsCancel" 
+                        Content="Cancel" 
+                        Margin="20, 32, 0 ,0" 
+                        HorizontalAlignment="Left" 
+                        Width="120" Height="31" 
+                        Style="{StaticResource travelPalButtons}" Click="btnUserDetailsCancel_Click"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-    </Border>
+    </Grid>
 </Window>

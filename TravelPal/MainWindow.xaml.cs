@@ -54,7 +54,7 @@ namespace TravelPal
             bool isUserFound = userManager.SignInUser(tbUsername.Text, pbPassword.Password);
             bool isUserAdmin = userManager.CheckIfAdmin();
 
-            // MAYBE REFRACTOR THIS INTO METHOD LATER
+            // MAYBE REFACTOR THIS INTO METHOD LATER
             if (travelManager == null)
             {
                 travelManager = new(userManager);
@@ -79,6 +79,24 @@ namespace TravelPal
         {
             RegisterWindow registerWindow = new(userManager);
             registerWindow.ShowDialog();
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }
